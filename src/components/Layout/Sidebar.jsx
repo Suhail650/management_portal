@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   FaUniversity,
@@ -7,12 +7,11 @@ import {
   FaReceipt,
   FaSignOutAlt,
 } from "react-icons/fa";
-import { Link, useNavigate,NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../Redux/Slices/AuthSlice";
 
 const Sidebar = () => {
-  const [active, setActive] = useState("Institutions");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -27,52 +26,40 @@ const Sidebar = () => {
       <ul className="nav flex-column flex-grow-1">
         <li className="nav-item">
           <NavLink
-            to={"/dashboard"}
-            className={`nav-link ${
-              active === "Institutions"
-                ? "bg-white text-primary rounded"
-                : "text-white"
-            }`}
-            onClick={() => setActive("Institutions")}
+            to="/dashboard"
+            className={({ isActive }) =>
+              `nav-link ${isActive ? "bg-white text-primary rounded" : "text-white"}`
+            }
           >
             <FaUniversity className="me-2" /> Institutions
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink
-            to={"/institution-students"}
-            className={`nav-link ${
-              active === "Institution Students"
-                ? "bg-white text-primary rounded"
-                : "text-white"
-            }`}
-            onClick={() => setActive("Institution Students")}
+            to="/institution-students"
+            className={({ isActive }) =>
+              `nav-link ${isActive ? "bg-white text-primary rounded" : "text-white"}`
+            }
           >
             <FaUserGraduate className="me-2" /> Institution Students
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink
-            to={"/blogs"}
-            className={`nav-link ${
-              active === "Blogs/Articles"
-                ? "bg-white text-primary rounded"
-                : "text-white"
-            }`}
-            onClick={() => setActive("Blogs/Articles")}
+            to="/blogs"
+            className={({ isActive }) =>
+              `nav-link ${isActive ? "bg-white text-primary rounded" : "text-white"}`
+            }
           >
             <FaNewspaper className="me-2" /> Blogs/Articles
           </NavLink>
         </li>
         <li className="nav-item">
           <NavLink
-            to={"/voucher"}
-            className={`nav-link ${
-              active === "Voucher Requests"
-                ? "bg-white text-primary rounded"
-                : "text-white"
-            }`}
-            onClick={() => setActive("Voucher Requests")}
+            to="/voucher"
+            className={({ isActive }) =>
+              `nav-link ${isActive ? "bg-white text-primary rounded" : "text-white"}`
+            }
           >
             <FaReceipt className="me-2" /> Voucher Requests
           </NavLink>

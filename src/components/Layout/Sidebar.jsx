@@ -7,7 +7,7 @@ import {
   FaReceipt,
   FaSignOutAlt,
 } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../Redux/Slices/AuthSlice";
 
@@ -26,7 +26,7 @@ const Sidebar = () => {
       <h4 className="mb-4">Menu</h4>
       <ul className="nav flex-column flex-grow-1">
         <li className="nav-item">
-          <Link
+          <NavLink
             to={"/dashboard"}
             className={`nav-link ${
               active === "Institutions"
@@ -36,11 +36,11 @@ const Sidebar = () => {
             onClick={() => setActive("Institutions")}
           >
             <FaUniversity className="me-2" /> Institutions
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link
-            to={"/"}
+          <NavLink
+            to={"/institution-students"}
             className={`nav-link ${
               active === "Institution Students"
                 ? "bg-white text-primary rounded"
@@ -49,11 +49,11 @@ const Sidebar = () => {
             onClick={() => setActive("Institution Students")}
           >
             <FaUserGraduate className="me-2" /> Institution Students
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link
-            to={"/"}
+          <NavLink
+            to={"/blogs"}
             className={`nav-link ${
               active === "Blogs/Articles"
                 ? "bg-white text-primary rounded"
@@ -62,11 +62,11 @@ const Sidebar = () => {
             onClick={() => setActive("Blogs/Articles")}
           >
             <FaNewspaper className="me-2" /> Blogs/Articles
-          </Link>
+          </NavLink>
         </li>
         <li className="nav-item">
-          <Link
-            to={"/"}
+          <NavLink
+            to={"/voucher"}
             className={`nav-link ${
               active === "Voucher Requests"
                 ? "bg-white text-primary rounded"
@@ -75,7 +75,7 @@ const Sidebar = () => {
             onClick={() => setActive("Voucher Requests")}
           >
             <FaReceipt className="me-2" /> Voucher Requests
-          </Link>
+          </NavLink>
         </li>
       </ul>
       <div className="mt-auto">

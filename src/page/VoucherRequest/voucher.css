@@ -1,0 +1,24 @@
+.vw-100{
+    width:100vw;
+}
+
+.ml-5p{
+     margin-left:5%
+}
+
+
+.custom-style-form-select{
+    width: 200px;
+display: inline-block;
+margin-right: 10px;
+}
+
+.custom-style-form-control{
+    width: 300px;
+display: inline-block;
+margin-right: 10px;
+}
+
+.button-success{
+    margin-right:5px
+}

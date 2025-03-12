@@ -2,60 +2,14 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaUniversity } from "react-icons/fa";
 import Sidebar from "../../components/Layout/Sidebar";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
-  const caInstitutions = [
-    {
-      id: 1,
-      name: "The Institute of Chartered Accountants of India (ICAI)",
-      location: "India",
-    },
-    {
-      id: 2,
-      name: "Association of Chartered Accountants (ACCA)",
-      location: "UK",
-    },
-    {
-      id: 3,
-      name: "Chartered Professional Accountants of Canada (CPA Canada)",
-      location: "Canada",
-    },
-    {
-      id: 4,
-      name: "The Institute of Chartered Accountants in England and Wales (ICAEW)",
-      location: "UK",
-    },
-    {
-      id: 5,
-      name: "Chartered Accountants Australia and New Zealand (CA ANZ)",
-      location: "Australia & New Zealand",
-    },
-    {
-      id: 6,
-      name: "South African Institute of Chartered Accountants (SAICA)",
-      location: "South Africa",
-    },
-    {
-      id: 7,
-      name: "The Institute of Chartered Accountants of Pakistan (ICAP)",
-      location: "Pakistan",
-    },
-    {
-      id: 8,
-      name: "Hong Kong Institute of Certified Public Accountants (HKICPA)",
-      location: "Hong Kong",
-    },
-    {
-      id: 9,
-      name: "The Institute of Chartered Accountants of Bangladesh (ICAB)",
-      location: "Bangladesh",
-    },
-    {
-      id: 10,
-      name: "The Institute of Chartered Accountants of Sri Lanka (CA Sri Lanka)",
-      location: "Sri Lanka",
-    },
-  ];
+  const caInstitutions = useSelector(
+    (state) => state.institution.institutions
+  );
+  console.log(caInstitutions);
 
   const [search, setSearch] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -106,9 +60,12 @@ const Dashboard = () => {
                         <FaUniversity className="me-3 text-primary" size={24} />
                         <span className="fw-bold">{i.name}</span>
                       </div>
-                      <button className="btn btn-primary btn-sm">
+                      <Link
+                        to={`/institution-details/${i.name}`}
+                        className="btn btn-primary btn-sm"
+                      >
                         View Details
-                      </button>
+                      </Link>
                     </div>
                   ))}
                 </div>

@@ -1,67 +1,97 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
 
-const initialState = {
-  institutions: [
-    {
-      id: 1,
-      name: "The Institute of Chartered Accountants of India (ICAI)",
-      location: "India",
-    },
-    {
-      id: 2,
-      name: "Association of Chartered Accountants (ACCA)",
-      location: "UK",
-    },
-    {
-      id: 3,
-      name: "Chartered Professional Accountants of Canada (CPA Canada)",
-      location: "Canada",
-    },
-    {
-      id: 4,
-      name: "The Institute of Chartered Accountants in England and Wales (ICAEW)",
-      location: "UK",
-    },
-    {
-      id: 5,
-      name: "Chartered Accountants Australia and New Zealand (CA ANZ)",
-      location: "Australia & New Zealand",
-    },
-    {
-      id: 6,
-      name: "South African Institute of Chartered Accountants (SAICA)",
-      location: "South Africa",
-    },
-    {
-      id: 7,
-      name: "The Institute of Chartered Accountants of Pakistan (ICAP)",
-      location: "Pakistan",
-    },
-    {
-      id: 8,
-      name: "Hong Kong Institute of Certified Public Accountants (HKICPA)",
-      location: "Hong Kong",
-    },
-    {
-      id: 9,
-      name: "The Institute of Chartered Accountants of Bangladesh (ICAB)",
-      location: "Bangladesh",
-    },
-    {
-      id: 10,
-      name: "The Institute of Chartered Accountants of Sri Lanka (CA Sri Lanka)",
-      location: "Sri Lanka",
-    },
-  ],
-};
+const API = "http://localhost:5001/institutions";
+
+export const fetchInstitutions = createAsyncThunk(
+  "institution/fetchInstitutions",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(API);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const fetchInstitutionById = createAsyncThunk(
+  "institution/fetchInstitutionById",
+  async (id, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${API}/${id}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const updateInstitutionStatus = createAsyncThunk(
+  "institution/updateStatus",
+  async ({ id, status }, { rejectWithValue }) => {
+    try {
+      const response = await axios.patch(`${API}/${id}`, { status });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 const institutionSlice = createSlice({
   name: "institution",
-  initialState,
-  reducers: {
-    getInstitutions: (state) => state.institutions,
+  initialState: {
+    institutions: [],
+    institution: {},
+    loading: false,
+    error: null,
+  },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchInstitutions.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchInstitutions.fulfilled, (state, action) => {
+        state.loading = false;
+        state.institutions = action.payload;
+      })
+      .addCase(fetchInstitutions.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(fetchInstitutionById.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchInstitutionById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.institution = action.payload;
+      })
+      .addCase(fetchInstitutionById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateInstitutionStatus.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateInstitutionStatus.fulfilled, (state, action) => {
+        state.loading = false;
+        const index = state.institutions.findIndex(
+          (inst) => inst.id === action.payload.id
+        );
+        if (index !== -1) {
+          state.institutions[index].status = action.payload.status;
+        }
+        if (state.institution?.id === action.payload.id) {
+          state.institution.status = action.payload.status;
+        }
+      })
+      .addCase(updateInstitutionStatus.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 
-export const { getInstitutions } = institutionSlice.actions;
 export default institutionSlice.reducer;

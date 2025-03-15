@@ -1,15 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaUniversity } from "react-icons/fa";
 import Sidebar from "../../components/Layout/Sidebar";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchInstitutions } from "../../Redux/slices/InstitutionSlice";
 
 const Dashboard = () => {
-  const caInstitutions = useSelector(
-    (state) => state.institution.institutions
+  const dispatch = useDispatch();
+
+  const { loading, institutions, error } = useSelector(
+    (state) => state.institution
   );
-  console.log(caInstitutions);
+
+  useEffect(() => {
+    dispatch(fetchInstitutions());
+  }, [dispatch]);
+
+  // const caInstitutions = useSelector((state) => state.institution.institutions);
+  // console.log(caInstitutions);
 
   const [search, setSearch] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -19,7 +28,7 @@ const Dashboard = () => {
     setSearchText(search);
   };
 
-  const filterInstitute = caInstitutions.filter((i) =>
+  const filterInstitute = institutions?.filter((i) =>
     i.name.toLowerCase().includes(searchText.toLowerCase())
   );
 
@@ -33,7 +42,14 @@ const Dashboard = () => {
           <div className="container-fluid m-4 ms-0">
             <h2 className="text-primary text-center">All Institutions</h2>
             <div>
-              <form role="search" className="row justify-content-center mb-4">
+              <form
+                role="search"
+                className="row justify-content-center mb-4"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  searchClick();
+                }}
+              >
                 <input
                   className="form-control me-2 w-75"
                   type="text"
@@ -51,23 +67,36 @@ const Dashboard = () => {
               </form>
               <div style={{ height: "70vh", overflowY: "scroll" }}>
                 <div className="list-group">
-                  {filterInstitute.map((i) => (
-                    <div
-                      key={i.id}
-                      className="d-flex align-items-center justify-content-between border p-3 mb-2 rounded"
-                    >
-                      <div className="d-flex align-items-center">
-                        <FaUniversity className="me-3 text-primary" size={24} />
-                        <span className="fw-bold">{i.name}</span>
-                      </div>
-                      <Link
-                        to={`/institution-details/${i.name}`}
-                        className="btn btn-primary btn-sm"
-                      >
-                        View Details
-                      </Link>
+                  {loading ? (
+                    <div className="p-3 text-center text-primary">
+                      Loading Institutions, please wait...
                     </div>
-                  ))}
+                  ) : error ? (
+                    <div className="p-3 text-center text-danger">
+                      Error: {error}
+                    </div>
+                  ) : (
+                    filterInstitute?.map((i) => (
+                      <div
+                        key={i.id}
+                        className="d-flex align-items-center justify-content-between border p-3 mb-2 rounded"
+                      >
+                        <div className="d-flex align-items-center">
+                          <FaUniversity
+                            className="me-3 text-primary"
+                            size={24}
+                          />
+                          <span className="fw-bold">{i.name}</span>
+                        </div>
+                        <Link
+                          to={`/institution-details/${i.id}`}
+                          className="btn btn-primary btn-sm"
+                        >
+                          View Details
+                        </Link>
+                      </div>
+                    ))
+                  )}
                 </div>
               </div>
             </div>

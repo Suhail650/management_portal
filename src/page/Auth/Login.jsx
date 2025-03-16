@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../Redux/Slices/AuthSlice";
-import { useNavigate } from "react-router-dom";
+
 import { Form, Button, Alert, Container, Card } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { loginUser } from "../../Redux/Slices/AuthSlice";
 import "./login.css";
 
 const Login = () => {

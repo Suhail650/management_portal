@@ -1,11 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
 import { fetchVoucherService, approveVoucherService, rejectVoucherService } from '../../services/voucherService';
+
 
 // Async thunks
 export const fetchVouchers = createAsyncThunk('vouchers/fetchVouchers', async () => {
   const response = await fetchVoucherService();
   return response.data;
+  
 });
+
 
 export const approveVoucher = createAsyncThunk('vouchers/approveVoucher', async ({ id, certificateImage }) => {
   const response = await approveVoucherService(id, certificateImage);
@@ -38,17 +42,17 @@ const voucherSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
+      // .addCase(approveVoucher.fulfilled, (state, action) => {
+      //   const index = state.vouchers.findIndex((v) => v.id === action.payload.id);
+      //   if (index !== -1) state.vouchers[index] = action.payload;
+      // })
       .addCase(approveVoucher.fulfilled, (state, action) => {
         const index = state.vouchers.findIndex((v) => v.id === action.payload.id);
-        if (index !== -1) {
-          state.vouchers[index] = action.payload;
-        }
+        if (index !== -1) state.vouchers[index] = action.payload;
       })
       .addCase(rejectVoucher.fulfilled, (state, action) => {
         const index = state.vouchers.findIndex((v) => v.id === action.payload.id);
-        if (index !== -1) {
-          state.vouchers[index] = action.payload;
-        }
+        if (index !== -1) state.vouchers[index] = action.payload;
       });
   },
 });

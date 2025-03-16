@@ -1,9 +1,11 @@
 import React, { useMemo, useState } from "react";
+
 import { useSelector } from "react-redux";
-import StudentItem from "./StudentItem";
+
 import "bootstrap/dist/css/bootstrap.min.css";
-import RejectModal from "./RejectModel";
 import ApproveModal from "./ApproveModel";
+import RejectModal from "./RejectModel";
+import StudentItem from "./StudentItem";
 
 const StudentList = () => {
   const [showApprove, setShowApprove] = useState(false);

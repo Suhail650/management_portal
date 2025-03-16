@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+
 import { Modal, Button, Form } from "react-bootstrap";
-import { uploadCertificate } from "../../services/studentsService";
 import { useDispatch } from "react-redux";
+
 import { approveStudent } from "../../Redux/slices/StudentsSlice";
+import { uploadCertificate } from "../../services/studentsService";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const ApproveModal = ({ show, handleClose, studentId }) => {

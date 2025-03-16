@@ -1,4 +1,5 @@
 import React from "react";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import {
   FaUniversity,
@@ -7,8 +8,9 @@ import {
   FaReceipt,
   FaSignOutAlt,
 } from "react-icons/fa";
-import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+
 import { logout } from "../../Redux/Slices/AuthSlice";
 
 const Sidebar = () => {

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FaUniversity } from "react-icons/fa";
-import Sidebar from "../../components/Layout/Sidebar";
-import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
+import Sidebar from "../../components/Layout/Sidebar";
 import { fetchInstitutions } from "../../Redux/slices/InstitutionSlice";
 
 const Dashboard = () => {

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style.css";
-import { Link, useNavigate, useParams } from "react-router-dom";
 import { FaArrowLeft, FaEdit, FaSave } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate, useParams } from "react-router-dom";
+
 import {
   fetchInstitutionById,
   updateInstitutionStatus,
@@ -86,30 +88,26 @@ const DetailInstitution = () => {
         <div className="mb-3">
           <strong>Address:</strong> {institution.address}
         </div>
-        <div className="mb-3">
-          <strong>Website:</strong>{" "}
-          <a
-            href={institution.website}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+        <div className='mb-3'>
+          <strong>Website:</strong>{' '}
+          <a href={institution.website} target='_blank' rel='noopener noreferrer'>
             {institution.website}
           </a>
         </div>
-        <div className="mb-3">
+        <div className='mb-3'>
           <strong>Email:</strong> {institution.email}
         </div>
-        <div className="mb-3">
+        <div className='mb-3'>
           <strong>Phone:</strong> {institution.phone}
         </div>
-        <div className="mb-3">
+        <div className='mb-3'>
           <strong>Contact Person:</strong> {institution.contactPerson}
         </div>
         <div className="mb-3 ">
           <strong>Status:</strong>
           <span
             className={`badge ${
-              institution.status === "Approved" ? "bg-success" : "bg-danger"
+              institution.status === 'Approved' ? 'bg-success' : 'bg-danger'
             } ms-2`}
           >
             {institution.status}

@@ -1,6 +1,8 @@
 import React from "react";
+
 import { Modal, Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
+
 import { rejectStudent } from "../../Redux/slices/StudentsSlice";
 import "bootstrap/dist/css/bootstrap.min.css";
 

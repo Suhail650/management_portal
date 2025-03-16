@@ -4,7 +4,7 @@ import Login from "../page/Auth/Login";
 import Dashboard from "../page/Dashboard/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PrivateRoute from "./PrivateRoutes";
-import InstitutionStudents from "../page/InstitutionStudents/institutionStudents";
+import InstitutionStudents from "../page/InstitutionStudents/InstitutionStudents";
 import BlogArticle from "../page/Blog/Blog/BlogArticle";
 import Voucher from "../page/VoucherRequest/Voucher";
 import DetailInstitution from "../page/Dashboard/DetailPage/DetailInstitution";

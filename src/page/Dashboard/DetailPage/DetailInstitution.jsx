@@ -22,15 +22,6 @@ const DetailInstitution = () => {
   const [status, setStatus] = useState("");
   const [isEditing, setIsEditing] = useState(false);
 
-  useEffect(() => {
-    dispatch(fetchInstitutionById(id));
-  }, [dispatch, id]);
-
-  useEffect(() => {
-    if (institution) {
-      setStatus(institution.status);
-    }
-  }, [institution]);
 
   useEffect(() => {
     dispatch(fetchInstitutionById(id));
@@ -45,7 +36,7 @@ const DetailInstitution = () => {
   const handleEdit = () => setIsEditing(true);
   const handleSave = () => {
     if (institution) {
-      dispatch(updateInstitutionStatus({ id: institution.id, status }))
+      dispatch(updateInstitutionStatus({ id: institution._id, status }))
         .then(() => {
           navigate("/dashboard");
         })

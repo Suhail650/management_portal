@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = "http://localhost:5001/institutions";
+const API = "http://localhost:5002/api/institutions";
 
 export const fetchInstitutionService = async () => {
   try {

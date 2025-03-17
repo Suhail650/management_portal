@@ -1,14 +1,15 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-
-const API = "http://localhost:5001/institutions";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  fetchinstitutionByIdService,
+  fetchInstitutionService,
+  updateStatusService,
+} from '../../services/institutionService';
 
 export const fetchInstitutions = createAsyncThunk(
-  "institution/fetchInstitutions",
+  'institution/fetchInstitutions',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get(API);
-      return response.data;
+      return await fetchInstitutionService();
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -16,11 +17,10 @@ export const fetchInstitutions = createAsyncThunk(
 );
 
 export const fetchInstitutionById = createAsyncThunk(
-  "institution/fetchInstitutionById",
+  'institution/fetchInstitutionById',
   async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`${API}/${id}`);
-      return response.data;
+      return await fetchinstitutionByIdService(id);
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -28,11 +28,10 @@ export const fetchInstitutionById = createAsyncThunk(
 );
 
 export const updateInstitutionStatus = createAsyncThunk(
-  "institution/updateStatus",
+  'institution/updateStatus',
   async ({ id, status }, { rejectWithValue }) => {
     try {
-      const response = await axios.patch(`${API}/${id}`, { status });
-      return response.data;
+      return await updateStatusService(id, status);
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -40,7 +39,7 @@ export const updateInstitutionStatus = createAsyncThunk(
 );
 
 const institutionSlice = createSlice({
-  name: "institution",
+  name: 'institution',
   initialState: {
     institutions: [],
     institution: {},
@@ -77,9 +76,7 @@ const institutionSlice = createSlice({
       })
       .addCase(updateInstitutionStatus.fulfilled, (state, action) => {
         state.loading = false;
-        const index = state.institutions.findIndex(
-          (inst) => inst.id === action.payload.id
-        );
+        const index = state.institutions.findIndex((inst) => inst.id === action.payload.id);
         if (index !== -1) {
           state.institutions[index].status = action.payload.status;
         }

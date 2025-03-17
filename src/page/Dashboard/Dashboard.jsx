@@ -80,7 +80,7 @@ const Dashboard = () => {
                   ) : (
                     filterInstitute?.map((i) => (
                       <div
-                        key={i.id}
+                        key={i._id}
                         className="d-flex align-items-center justify-content-between border p-3 mb-2 rounded"
                       >
                         <div className="d-flex align-items-center">
@@ -91,7 +91,7 @@ const Dashboard = () => {
                           <span className="fw-bold">{i.name}</span>
                         </div>
                         <Link
-                          to={`/institution-details/${i.id}`}
+                          to={`/institution-details/${i._id}`}
                           className="btn btn-primary btn-sm"
                         >
                           View Details

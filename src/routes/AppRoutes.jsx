@@ -5,8 +5,11 @@ import Dashboard from "../page/Dashboard/Dashboard";
 import "bootstrap/dist/css/bootstrap.min.css";
 import PrivateRoute from "./PrivateRoutes";
 import InstitutionStudents from "../page/InstitutionStudents/institutionStudents";
-import BlogArticle from "../page/Blog/Blog/BlogArticle";
+import BlogHome from "../page/Blog/Bloghome";
+import BlogDetail from "../page/Blog/BlogDetail";
+import CreateBlog from "../page/Blog/CreateBlog";
 import Voucher from "../page/VoucherRequest/Voucher";
+
 
 const AppRoutes = () => {
   return (
@@ -15,8 +18,12 @@ const AppRoutes = () => {
       <Route element={<PrivateRoute />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/institution-students" element={<InstitutionStudents/>}/>
-        <Route path="/blogs" element={<BlogArticle/>}/>
         <Route path="/voucher" element={<Voucher/>}/>
+
+        <Route path="/blogs" element={<BlogHome />} />
+        <Route path="/blogs/:id" element={<BlogDetail />} />
+        <Route path="/create" element={<CreateBlog />} />
+
       </Route>
     </Routes>
   );

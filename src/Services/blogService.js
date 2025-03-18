@@ -1,5 +1,4 @@
-const API_URL = "https://yourapi.com/blogs";
-
+const API_URL = 'https://yourapi.com/blogs';
 
 export const getBlogs = async () => {
   const response = await fetch(API_URL);
@@ -13,32 +12,31 @@ export const getBlogById = async (id) => {
 
 export const createBlog = async (blog) => {
   const response = await fetch(API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(blog),
   });
   return response.json();
 };
 
 export const deleteBlog = async (id) => {
-    const response = await fetch(`${API_URL}/${id}`, {
-      method: "DELETE",
-    });
-  
-    if (!response.ok) throw new Error("Failed to delete blog");
-    return response.json();
-  };
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: 'DELETE',
+  });
 
+  if (!response.ok) throw new Error('Failed to delete blog');
+  return response.json();
+};
 
-  export const editBlog = async (id, updatedBlogData) => {
-    const response = await fetch(`${API_URL}/${id}`, {
-      method: "PUT", // Use PATCH if updating only specific fields
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(updatedBlogData),
-    });
-  
-    if (!response.ok) throw new Error("Failed to update blog");
-    return response.json();
-  };
+export const editBlog = async (id, updatedBlogData) => {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: 'PUT', // Use PATCH if updating only specific fields
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedBlogData),
+  });
+
+  if (!response.ok) throw new Error('Failed to update blog');
+  return response.json();
+};

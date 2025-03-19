@@ -8,7 +8,7 @@ import { deleteBlog, getBlogs } from '../../services/blogService';
 const DummyBlogCard = () => {
   const navigate = useNavigate();
   const [blogs, setBlogs] = useState([]);
-  const [deleting, setDeleting] = useState(false);
+  const [deleting, setDeleting] = useState({});
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -23,7 +23,7 @@ const DummyBlogCard = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    setDeleting(true); // Disable button while deleting
+    setDeleting((prev) => ({ ...prev, [id]: true }));
     try {
       await deleteBlog(id);
       setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.id !== id));
@@ -31,7 +31,7 @@ const DummyBlogCard = () => {
     } catch (error) {
       alert(`Failed to delete blog: ${error.message}`);
     }
-    setDeleting(false); // Re-enable button after deletion
+    setDeleting((prev) => ({ ...prev, [id]: false }));
   };
 
   return (
@@ -53,7 +53,7 @@ const DummyBlogCard = () => {
 
             {/* Delete Button */}
             <Button variant='primary' onClick={() => handleDelete(dummyBlog.id)}>
-              {deleting ? 'Deleting...' : 'Delete'}
+              {deleting[dummyBlog.id] ? 'Deleting...' : 'Delete'}
             </Button>
           </Card.Body>
         </Card>

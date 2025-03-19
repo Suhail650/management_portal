@@ -52,7 +52,8 @@ const BlogDetail = () => {
           {!isEditing ? (
             <>
               <h1 className='text-center my-4'>{blog.title}</h1>
-              <p className='text-muted'>{blog.shortDescription}</p>
+              <p className='text-muted mb-0'>{blog.shortDescription}</p>
+              <p className='text-muted mt-0'>{blog.createdDateTime}</p>
               <p>{blog.longDescription}</p>
               <Button variant='primary' className='me-2' onClick={handleEditClick}>
                 Edit

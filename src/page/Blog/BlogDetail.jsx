@@ -4,7 +4,7 @@ import { Container, Button, Form } from 'react-bootstrap';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
 
 import Sidebar from '../../components/Layout/Sidebar';
-import { getBlogById } from '../../Services/blogService';
+import { editBlog, getBlogById } from '../../services/blogService';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const BlogDetail = () => {
@@ -30,9 +30,10 @@ const BlogDetail = () => {
     setIsEditing(true);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setBlog(editedBlog);
     setIsEditing(false);
+    await editBlog(id, editedBlog);
     alert('Blog updated! (Replace this with an API call to save changes)');
   };
 

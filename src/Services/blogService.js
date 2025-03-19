@@ -1,4 +1,4 @@
-const API_URL = 'https://yourapi.com/blogs';
+const API_URL = 'http://localhost:5002/api/blogs';
 
 export const getBlogs = async () => {
   const response = await fetch(API_URL);
@@ -25,7 +25,8 @@ export const deleteBlog = async (id) => {
   });
 
   if (!response.ok) throw new Error('Failed to delete blog');
-  return response.json();
+  const text = await response.text();
+  return text ? JSON.parse(text) : {};
 };
 
 export const editBlog = async (id, updatedBlogData) => {

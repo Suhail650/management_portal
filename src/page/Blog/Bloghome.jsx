@@ -13,7 +13,7 @@ const BlogHome = () => {
         </div>
         <div className='col-9 p-0 '>
           <MyNavbar />
-          <div className='mt-4 '>
+          <div className='mt-4 ' style={{ height: '80vh', overflowY: 'scroll' }}>
             <BlogCard />
           </div>
         </div>

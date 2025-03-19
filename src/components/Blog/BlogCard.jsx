@@ -1,43 +1,62 @@
 import { Card, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { deleteBlog, getBlogs } from '../../services/blogService';
+import { useEffect, useState } from 'react';
 
 const DummyBlogCard = () => {
   const navigate = useNavigate();
+  const [blogs, setBlogs] = useState([]);
+  const [deleting, setDeleting] = useState(false);
 
-  const dummyBlog = {
-    id: 1,
-    title: 'The Power of Consistency in Blogging',
-    shortDescription: "Learn how posting regularly can boost your blog's growth and engagement.",
-    longDescription:
-      'Consistency is key when it comes to blogging success. Regular posting helps establish authority, improve SEO rankings, and keep your audience engaged. By maintaining a consistent posting schedule, bloggers can create a loyal readership and enhance their online presence. This article explores the importance of consistency, how to develop a sustainable content strategy, and tips for staying motivated on your blogging journey.',
-  };
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const data = await getBlogs();
+        setBlogs(data);
+      } catch (error) {
+        console.log(`error fetching blogs : ${error}`);
+      }
+    };
+    fetchBlogs();
+  }, []);
 
-  const handleDelete = () => {
-    alert(`Blog with ID ${dummyBlog.id} deleted!`);
-    // Replace with actual delete logic (API call)
+  const handleDelete = async (id) => {
+    setDeleting(true); // Disable button while deleting
+    try {
+      await deleteBlog(id);
+      setBlogs((prevBlogs) => prevBlogs.filter((blog) => blog.id !== id));
+      alert(`Blog with ID ${id} deleted!`);
+    } catch (error) {
+      alert(`Failed to delete blog: ${error.message}`);
+    }
+    setDeleting(false); // Re-enable button after deletion
   };
 
   return (
-    <Card className='mb-4 shadow' style={{ maxWidth: '1000px' }}>
-      <Card.Body>
-        <Card.Title>{dummyBlog.title}</Card.Title>
-        <Card.Text>{dummyBlog.shortDescription}</Card.Text>
+    <div>
+      {blogs.map((dummyBlog) => (
+        <Card key={dummyBlog.id} className='mb-4 shadow' style={{ maxWidth: '1000px' }}>
+          <Card.Body>
+            <Card.Title>{dummyBlog.title}</Card.Title>
+            <Card.Text>{dummyBlog.shortDescription}</Card.Text>
 
-        {/* Read More Button - Pass dummyBlog as state */}
-        <Button
-          variant='primary'
-          className='me-2'
-          onClick={() => navigate(`/blogs/${dummyBlog.id}`, { state: dummyBlog })}
-        >
-          Read More
-        </Button>
+            {/* Read More Button - Pass dummyBlog as state */}
+            <Button
+              variant='primary'
+              className='me-2'
+              onClick={() => navigate(`/blogs/${dummyBlog.id}`, { state: dummyBlog })}
+            >
+              Read More
+            </Button>
 
-        {/* Delete Button */}
-        <Button variant='primary' onClick={handleDelete}>
-          Delete
-        </Button>
-      </Card.Body>
-    </Card>
+            {/* Delete Button */}
+            <Button variant='primary' onClick={() => handleDelete(dummyBlog.id)}>
+              {deleting ? 'Deleting...' : 'Delete'}
+            </Button>
+          </Card.Body>
+        </Card>
+      ))}
+    </div>
   );
 };
 

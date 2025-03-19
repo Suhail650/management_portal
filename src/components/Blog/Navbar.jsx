@@ -1,5 +1,5 @@
 import { Navbar, Container, Nav } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const MyNavbar = () => {
   return (
@@ -9,10 +9,10 @@ const MyNavbar = () => {
           Blog Management
         </Navbar.Brand>
         <Nav>
-          <Nav.Link as={Link} to='/blogs'>
+          <Nav.Link as={NavLink} to='/blogs'>
             Home
           </Nav.Link>
-          <Nav.Link as={Link} to='/create'>
+          <Nav.Link as={NavLink} to='/create'>
             Create Blog
           </Nav.Link>
         </Nav>

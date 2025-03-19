@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Form, Button, Container, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
-import { createBlog } from '../../Services/blogService';
+import { createBlog } from '../../services/blogService';
 
 const BlogForm = () => {
   const [blog, setBlog] = useState({ title: '', shortDescription: '', longDescription: '' });

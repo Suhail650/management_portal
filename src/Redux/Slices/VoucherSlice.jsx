@@ -8,21 +8,16 @@ import {
 
 // Async thunks
 export const fetchVouchers = createAsyncThunk('vouchers/fetchVouchers', async () => {
-  const response = await fetchVoucherService();
-  return response.data;
+  return await fetchVoucherService();
+ 
 });
 
-export const approveVoucher = createAsyncThunk(
-  'vouchers/approveVoucher',
-  async ({ id, certificateImage }) => {
-    const response = await approveVoucherService(id, certificateImage);
-    return response.data;
-  },
-);
+export const approveVoucher = createAsyncThunk('vouchers/approveVoucher', async ({id}) => {
+  return await approveVoucherService(id);
+});
 
-export const rejectVoucher = createAsyncThunk('vouchers/rejectVoucher', async (id) => {
-  const response = await rejectVoucherService(id);
-  return response.data;
+export const rejectVoucher = createAsyncThunk('vouchers/rejectVoucher', async ({ id }) => {
+  return await rejectVoucherService(id);
 });
 
 const voucherSlice = createSlice({
@@ -51,11 +46,11 @@ const voucherSlice = createSlice({
       //   if (index !== -1) state.vouchers[index] = action.payload;
       // })
       .addCase(approveVoucher.fulfilled, (state, action) => {
-        const index = state.vouchers.findIndex((v) => v.id === action.payload.id);
+        const index = state.vouchers.findIndex((v) => v._id === action.payload._id);
         if (index !== -1) state.vouchers[index] = action.payload;
       })
       .addCase(rejectVoucher.fulfilled, (state, action) => {
-        const index = state.vouchers.findIndex((v) => v.id === action.payload.id);
+        const index = state.vouchers.findIndex((v) => v._id === action.payload._id);
         if (index !== -1) state.vouchers[index] = action.payload;
       });
   },

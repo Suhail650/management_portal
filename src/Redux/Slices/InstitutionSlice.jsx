@@ -1,10 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import {
-  fetchinstitutionByIdService,
-  fetchInstitutionService,
-  updateStatusService,
-} from '../../services/institutionService';
+import { fetchinstitutionByIdService, fetchInstitutionService, updateStatusService} from '../../services/institutionService';
 
 export const fetchInstitutions = createAsyncThunk(
   'institution/fetchInstitutions',

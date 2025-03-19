@@ -5,9 +5,9 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (credentials, { rejectWithValue }) => {
     try {
-      const response = await axios.post('https://api.escuelajs.co/api/v1/auth/login', credentials);
-      localStorage.setItem('token', response.data.access_token);
-      console.log(response.data);
+      const response = await axios.post("http://localhost:5002/api/auth/login", credentials);
+      localStorage.setItem("token", response.data.access_token);
+      console.log(response.data)
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

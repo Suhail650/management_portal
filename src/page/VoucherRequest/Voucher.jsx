@@ -7,6 +7,7 @@ import Sidebar from '../../components/Layout/Sidebar';
 import { fetchVouchers, approveVoucher, rejectVoucher } from '../../Redux/Slices/VoucherSlice';
 
 import './voucher.module.css';
+
 const VoucherRequests = () => {
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.voucher || {});
@@ -16,7 +17,6 @@ const VoucherRequests = () => {
   const [showApproveModal, setShowApproveModal] = useState(false);
   const [showRejectModal, setShowRejectModal] = useState(false);
   const [selectedVoucher, setSelectedVoucher] = useState(null);
-  const [certificateImage, setCertificateImage] = useState(null);
 
   useEffect(() => {
     dispatch(fetchVouchers()).then((data) => console.log('Fetched vouchers:', data));
@@ -28,7 +28,9 @@ const VoucherRequests = () => {
     () =>
       vouchers.filter((voucher) => {
         const matchesStatus = filterStatus === 'all' || voucher.status === filterStatus;
-        const matchesSearch = voucher.institution.toLowerCase().includes(searchQuery.toLowerCase());
+        const matchesSearch = voucher.institutionName
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase());
         return matchesStatus && matchesSearch;
       }),
     [vouchers, filterStatus, searchQuery],
@@ -45,16 +47,17 @@ const VoucherRequests = () => {
   };
 
   const handleApproveConfirm = () => {
-    if (selectedVoucher && certificateImage) {
-      dispatch(approveVoucher({ id: selectedVoucher.id, certificateImage }));
+    if (selectedVoucher) {
+      dispatch(approveVoucher({ id: selectedVoucher._id }));
       setShowApproveModal(false);
-      setCertificateImage(null);
+    } else {
+      console.error('Error: No valid voucher selected for approval.');
     }
   };
 
   const handleRejectConfirm = () => {
     if (selectedVoucher) {
-      dispatch(rejectVoucher(selectedVoucher.id));
+      dispatch(rejectVoucher({ id: selectedVoucher._id }));
       setShowRejectModal(false);
     }
   };
@@ -70,7 +73,7 @@ const VoucherRequests = () => {
       </div>
 
       {/* Main Content */}
-      <div className='col-9 container mt-4 overflow-auto'>
+      <div className='col-9 container mt-4 '>
         <div className='mb-4 text-center text-primary'>
           <h1 className='fs-2'>Voucher Requests</h1>
         </div>
@@ -93,45 +96,49 @@ const VoucherRequests = () => {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
         </div>
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Institution</th>
-              <th>Quantity</th>
-              <th>Status</th>
-              <th className='actions-column'>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredVouchers.map((voucher) => (
-              <tr key={voucher.id}>
-                <td>{voucher.id}</td>
-                <td>{voucher.institution}</td>
-                <td>{voucher.quantity}</td>
-                <td>{voucher.status}</td>
-                <td className='actions-column'>
-                  {voucher.status === 'pending' && (
-                    <>
-                      <Button
-                        className='m-2'
-                        variant='success'
-                        size='sm'
-                        onClick={() => handleApprove(voucher)}
-                      >
-                        Approve
-                      </Button>
-                      <Button variant='danger' size='sm' onClick={() => handleReject(voucher)}>
-                        Reject
-                      </Button>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-
+        <div className='table-responsive' >
+          <div className='table-container' style={{ maxHeight: "460px", overflowY: "auto", border: "1px solid #ddd", width: "100%", scrollbarWidth: "none", 
+    msOverflowStyle: "none" }}>
+            <Table striped bordered hover  className='table-fixed' style={{ width: "100%", tableLayout: "fixed" }}>
+              <thead className='text-center' style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 1000 }}>
+                <tr>
+                  <th>Invoice.No</th>
+                  <th>Institution</th>
+                  <th>Quantity</th>
+                  <th>Status</th>
+                  <th className='actions-column'>Actions</th>
+                </tr>
+              </thead>
+              <tbody className='text-center'>
+                {filteredVouchers.map((voucher) => (
+                  <tr key={voucher._id}>
+                    <td>{voucher.invoice}</td>
+                    <td>{voucher.institutionName}</td>
+                    <td>{voucher.noOfVouchers}</td>
+                    <td>{voucher.requestStatus}</td>
+                    <td className='actions-column'>
+                      {voucher.requestStatus === 'Pending' && (
+                        <>
+                          <Button
+                            className='m-2'
+                            variant='success'
+                            size='sm'
+                            onClick={() => handleApprove(voucher)}
+                          >
+                            Approve
+                          </Button>
+                          <Button variant='danger' size='sm' onClick={() => handleReject(voucher)}>
+                            Reject
+                          </Button>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
+        </div>
         {/* Approve Modal */}
         <Modal show={showApproveModal} onHide={() => setShowApproveModal(false)}>
           <Modal.Header closeButton>

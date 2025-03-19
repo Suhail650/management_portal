@@ -23,5 +23,33 @@
 }
 
 .actions-column {
-  width: 120px;
-}
+    width: 120px; 
+
+  }
+
+
+  .table-container {
+    max-height: 400px;  /* Adjust height */
+    overflow-y: auto;   /* Enable vertical scrolling */
+    border: 1px solid #ddd;
+    width: 100%;        /* Ensure full width */
+  }
+  
+  .table-fixed {
+    width: 100%;        /* Ensure the table takes full width */
+    table-layout: fixed; /* Helps maintain column widths */
+  }
+  
+  .table-fixed thead {
+    position: sticky;
+    top: 0;
+    background-color: white; /* Keep header visible */
+    z-index: 1000;
+  }
+  
+  .table-fixed {
+    padding: 10px;
+    text-align: center;
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+  

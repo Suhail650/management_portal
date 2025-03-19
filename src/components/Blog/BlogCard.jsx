@@ -1,7 +1,9 @@
+import { useEffect, useState } from 'react';
+
 import { Card, Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+
 import { deleteBlog, getBlogs } from '../../services/blogService';
-import { useEffect, useState } from 'react';
 
 const DummyBlogCard = () => {
   const navigate = useNavigate();

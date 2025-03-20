@@ -37,7 +37,7 @@ const DummyBlogCard = () => {
   return (
     <div>
       {blogs.map((dummyBlog) => (
-        <Card key={dummyBlog.id} className='mb-4 shadow' style={{ maxWidth: '1000px' }}>
+        <Card key={dummyBlog.id} className='mb-4 ' style={{ maxWidth: '1000px' }}>
           <Card.Body>
             <Card.Title>{dummyBlog.title}</Card.Title>
             <Card.Text>{dummyBlog.shortDescription}</Card.Text>

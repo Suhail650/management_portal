@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Sidebar from '../../components/Layout/Sidebar';
 import { fetchVouchers, approveVoucher, rejectVoucher } from '../../Redux/Slices/VoucherSlice';
 
-import './voucher.module.css';
+import style from './voucher.module.css';
 
 const VoucherRequests = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const VoucherRequests = () => {
   const filteredVouchers = useMemo(
     () =>
       vouchers.filter((voucher) => {
-        const matchesStatus = filterStatus === 'all' || voucher.status === filterStatus;
+        const matchesStatus = filterStatus === 'all' || voucher.requestStatus === filterStatus;
         const matchesSearch = voucher.institutionName
           .toLowerCase()
           .includes(searchQuery.toLowerCase());
@@ -84,9 +84,9 @@ const VoucherRequests = () => {
             onChange={(e) => setFilterStatus(e.target.value)}
           >
             <option value='all'>All</option>
-            <option value='pending'>Pending</option>
-            <option value='approved'>Approved</option>
-            <option value='rejected'>Rejected</option>
+            <option value='Pending'>Pending</option>
+            <option value='Approved'>Approved</option>
+            <option value='Rejected'>Rejected</option>
           </Form.Select>
           <Form.Control
             className='w-25'
@@ -97,16 +97,15 @@ const VoucherRequests = () => {
           />
         </div>
         <div className='table-responsive' >
-          <div className='table-container' style={{ maxHeight: "460px", overflowY: "auto", border: "1px solid #ddd", width: "100%", scrollbarWidth: "none", 
-    msOverflowStyle: "none" }}>
-            <Table striped bordered hover  className='table-fixed' style={{ width: "100%", tableLayout: "fixed" }}>
-              <thead className='text-center' style={{ position: "sticky", top: 0, backgroundColor: "white", zIndex: 1000 }}>
+          <div className={style.customTableContainer}>
+            <Table striped bordered hover  className={style.customFixedTable}>
+              <thead className={`text-center ${style.customTableHead}`}>
                 <tr>
                   <th>Invoice.No</th>
                   <th>Institution</th>
                   <th>Quantity</th>
                   <th>Status</th>
-                  <th className='actions-column'>Actions</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody className='text-center'>

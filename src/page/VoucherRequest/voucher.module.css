@@ -1,55 +1,26 @@
-.vw-100 {
-  width: 100vw;
+.customTableContainer {
+  max-height: 460px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  width: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none; 
+  scroll-behavior: smooth;
 }
 
-.ml-5p {
-  margin-left: 5%;
+
+.customTableContainer::-webkit-scrollbar {
+  display: none;
 }
 
-.custom-style-form-select {
-  width: 200px;
-  display: inline-block;
-  margin-right: 10px;
+.customFixedTable {
+  width: 100%;
+  table-layout: fixed;
 }
 
-.custom-style-form-control {
-  width: 300px;
-  display: inline-block;
-  margin-right: 10px;
+.customTableHead {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1000;
 }
-
-.button-success {
-  margin-right: 5px;
-}
-
-.actions-column {
-    width: 120px; 
-
-  }
-
-
-  .table-container {
-    max-height: 400px;  /* Adjust height */
-    overflow-y: auto;   /* Enable vertical scrolling */
-    border: 1px solid #ddd;
-    width: 100%;        /* Ensure full width */
-  }
-  
-  .table-fixed {
-    width: 100%;        /* Ensure the table takes full width */
-    table-layout: fixed; /* Helps maintain column widths */
-  }
-  
-  .table-fixed thead {
-    position: sticky;
-    top: 0;
-    background-color: white; /* Keep header visible */
-    z-index: 1000;
-  }
-  
-  .table-fixed {
-    padding: 10px;
-    text-align: center;
-    white-space: nowrap; /* Prevent text wrapping */
-  }
-  

@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { loginUser } from '../../Redux/Slices/AuthSlice';
-import './login.css';
+
+import style from './login.module.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -25,7 +26,7 @@ const Login = () => {
 
   return (
     <Container className='d-flex justify-content-center align-items-center vh-100'>
-      <Card className='p-4 border border-2 border-dark rounded-5' style={{ width: '350px' }}>
+      <Card className={`p-4 border border-2 border-dark rounded-5 ${style.customCardWidth}`}>
         <h3 className='text-center'>Management Portal</h3>
         {error && <Alert variant='danger'>{error}</Alert>}
         <Form onSubmit={handleSubmit}>
@@ -48,7 +49,7 @@ const Login = () => {
             />
           </Form.Group>
           <div className='d-flex justify-content-center'>
-            <Button type='submit' disabled={loading} className='w-50 custom-btn'>
+            <Button type='submit' disabled={loading} className={`w-50 ${style.customBtn}`}>
               {loading ? 'Logging in...' : 'Login'}
             </Button>
           </div>

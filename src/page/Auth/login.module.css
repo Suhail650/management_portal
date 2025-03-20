@@ -1,0 +1,8 @@
+.customBtn {
+  background-color: rgb(124, 124, 203) !important;
+  border:2px solid rgb(124, 124, 203)
+}
+
+.customCardWidth{
+  width:350px;
+}

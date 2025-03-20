@@ -5,7 +5,7 @@ const MyNavbar = () => {
   return (
     <Navbar bg='primary' variant='dark' expand='lg'>
       <Container>
-        <Navbar.Brand as={Link} to='/blogs'>
+        <Navbar.Brand as={Link} to='/blogs' className='fs-2 mx-auto '>
           Blog Management
         </Navbar.Brand>
         <Nav>

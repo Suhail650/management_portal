@@ -41,10 +41,6 @@ const voucherSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-      // .addCase(approveVoucher.fulfilled, (state, action) => {
-      //   const index = state.vouchers.findIndex((v) => v.id === action.payload.id);
-      //   if (index !== -1) state.vouchers[index] = action.payload;
-      // })
       .addCase(approveVoucher.fulfilled, (state, action) => {
         const index = state.vouchers.findIndex((v) => v._id === action.payload._id);
         if (index !== -1) state.vouchers[index] = action.payload;

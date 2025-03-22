@@ -1,0 +1,18 @@
+.customWidth{
+    width:100vw
+}
+
+
+.institutionList{
+    height: 70vh;
+    overflow-y: scroll;
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar for IE & Edge */
+    scroll-behavior: smooth; /* Smooth scrolling */
+  }
+  
+  /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+  .institutionList::-webkit-scrollbar {
+    display: none;
+  }
+  

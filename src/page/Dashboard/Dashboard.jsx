@@ -8,6 +8,8 @@ import { Link } from 'react-router-dom';
 import Sidebar from '../../components/Layout/Sidebar';
 import { fetchInstitutions } from '../../Redux/slices/InstitutionSlice';
 
+import style from './dashboard.module.css'
+
 const Dashboard = () => {
   const dispatch = useDispatch();
 
@@ -34,7 +36,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className='row position-fixed' style={{ width: '100vw' }}>
+      <div className={`row position-fixed ${style.customWidth}`}>
         <div className='col-3'>
           <Sidebar />
         </div>
@@ -65,7 +67,7 @@ const Dashboard = () => {
                   Search
                 </button>
               </form>
-              <div style={{ height: '70vh', overflowY: 'scroll' }}>
+              <div className={style.institutionList}>
                 <div className='list-group'>
                   {loading ? (
                     <div className='p-3 text-center text-primary'>

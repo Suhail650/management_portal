@@ -102,6 +102,7 @@ const DetailInstitution = () => {
               value={status}
               onChange={(e) => setStatus(e.target.value)}
             >
+              <option value="">Select</option>
               <option value='Approved'>Approved</option>
               <option value='Rejected'>Rejected</option>
             </select>

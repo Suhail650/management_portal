@@ -1,5 +1,10 @@
 login page implemented
 ----test
-"email": "john@mail.com",
-"password": "changeme"
+
+"email": "management@mail.com",
+"password": "management"
+
+"email": "suhail@example.com",
+"password": "suhail@2003"
+
 dashboard implemented
